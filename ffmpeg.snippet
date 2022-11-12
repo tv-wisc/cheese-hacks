@@ -1,1 +1,11 @@
 ffmpeg -ss 00:00:55 -to 00:01:12 -i $(youtube-dl -g -f worst https://www.youtube.com/watch?v=8Z1eMy2FoX4) ./test.mp4
+
+
+# From: https://trac.ffmpeg.org/wiki/Concatenate
+
+# with a bash for loop
+for f in *.mp4; do echo "file '$f'" >> mylist.txt; done
+# or with printf
+printf "file '%s'\n" *.mp4 > mylist.txt
+
+ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
