@@ -34,8 +34,8 @@ public class Frontend implements IFrontend {
 
       checkRequirements();
 
-      System.out.println("Run Again?(enter q to quit)");
-      
+      System.out.println("\nRun Again?(enter q to quit)");
+
       if (userInputScanner.next().equalsIgnoreCase("q")) {
         System.out.println("Goodbye!");
         break;
@@ -60,7 +60,7 @@ public class Frontend implements IFrontend {
   @Override
   public void enterCourses() {
     while (true) {
-      System.out.println("Please enter course you have taken(enter q when no more left): \n");
+      System.out.println("\nPlease enter course you have taken(enter q when no more left): \n");
       String userCourse = userInputScanner.nextLine().trim();
       if (userCourse.equalsIgnoreCase("q")) {
         break;
@@ -72,7 +72,7 @@ public class Frontend implements IFrontend {
 
   @Override
   public void checkRequirements() {
-    System.out.println("Please choose requirement to verify: \n");
+    System.out.println("\nPlease choose requirement to verify: \n");
     ArrayList<Requirement> reqs = backend.getMajorRequirements();
 
     for (int i = 0; i < reqs.size(); ++i) {
@@ -82,18 +82,21 @@ public class Frontend implements IFrontend {
 
     String userReq = userInputScanner.next();
 
-//    System.out.println(reqs.get(Integer.parseInt(userReq) - 1));
-    
+    // System.out.println(reqs.get(Integer.parseInt(userReq) - 1));
+
     HashSet<Course> toTake = backend.checkRequirement(reqs.get(Integer.parseInt(userReq) - 1));
 
     System.out.println();
     if (toTake.size() == 0) {
       System.out.println("Requirement met!");
     } else {
-      System.out.println("Requirement not met!\n" + "You may take these courses");
+      System.out.println("Requirement not met!\n" + "You may take these courses: \n");
       for (Course e : toTake) {
         System.out.println(e);
       }
+
+      System.out.println("\nAll courses left to complete requirement: \n");
+      backend.allRequiredCourses(reqs.get(Integer.parseInt(userReq) - 1));
     }
 
   }

@@ -43,9 +43,8 @@ public class Requirement {
   }
 
   public HashSet<Course> couldTake(HashSet<Course> courses) {
-//    System.out.println("Hello" + this.courses);
-    
     HashSet<Course> toReturn = (HashSet<Course>) this.courses.clone();
+
     for (Course c : courses) {
       toReturn.remove(c);
     }

@@ -10,6 +10,8 @@ public interface IBackend {
   public ArrayList<Requirement> getMajorRequirements();
 
   public HashSet<Course> checkRequirement(Requirement requirement);
+  
+  public void allRequiredCourses(Requirement requirement);
 
 }
 

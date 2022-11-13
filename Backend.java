@@ -49,8 +49,8 @@ public class Backend implements IBackend {
       return toReturn;
     } else {
       HashSet<Course> toCheck = requirement.couldTake(this.userCourses);
-//      System.out.println(this.userCourses);
-//      System.out.println(toCheck);
+      // System.out.println(this.userCourses);
+      // System.out.println(toCheck);
 
       for (Course c : toCheck) {
         if (c.getPrereqs() != null) {
@@ -66,6 +66,15 @@ public class Backend implements IBackend {
 
     }
     return toReturn;
+  }
+  
+  @Override
+  public void allRequiredCourses(Requirement requirement) {
+    HashSet<Course> toCheck = requirement.couldTake(this.userCourses);
+    for (Course e : toCheck) {
+      System.out.println(e);
+    }
+    
   }
 
   public boolean checkSingle(String prereq) {
