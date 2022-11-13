@@ -1,14 +1,15 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public interface IBackend {
-  
-  public void setMajor(String userMajor);
-  
+
+  public boolean setMajor(String userMajor);
+
   public void addUserCourse(String userCourse);
 
-  public ArrayList<Requirements> getMajorRequirements();
+  public ArrayList<Requirement> getMajorRequirements();
 
-  public ArrayList<Course> checkRequirement(Requirements requirements);
+  public HashSet<Course> checkRequirement(Requirement requirement);
 
 }
 

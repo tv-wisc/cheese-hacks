@@ -18,13 +18,9 @@ public interface IFrontend {
    */
   public void runCommandLoop();
 
-  // to help make it easier to test the functionality of this program,
-  // the following helper methods will help support runCommandLoop():
+  public void getMajor();
 
-  public void displayMainMenu(); // prints command options to System.out
+  public void enterCourses();
 
-  public void enterCourses(); // modifies the definition of the word
-
-  public void checkRequirements(); // deletes the chosen word
-
+  public void checkRequirements();
 }
