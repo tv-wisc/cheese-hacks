@@ -21,7 +21,7 @@ public class Frontend implements IFrontend {
 
   @Override
   public void runCommandLoop() {
-    System.out.println("Welcome to the Custom searcher!\n" + "*******************************\n");
+    System.out.println("Welcome to the Course Aid!\n" + "**************************\n");
 
     boolean run = true;// to check if the loop should be run or exited
 

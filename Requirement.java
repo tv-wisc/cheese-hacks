@@ -6,10 +6,11 @@ public class Requirement {
   private int numCourses;
   private int numCredits;
 
-  public Requirement(HashSet<Course> courses, int numCourses, int numCredits) {
+  public Requirement(HashSet<Course> courses, int numCourses, int numCredits, String title) {
     this.courses = courses;
     this.numCourses = numCourses;
     this.numCredits = numCredits;
+    this.title = title;
   }
 
   public String getTitle() {
@@ -38,7 +39,6 @@ public class Requirement {
         }
       }
     }
-
     return false;
   }
 

@@ -9,8 +9,9 @@ public class Backend implements IBackend {
   private HashSet<Course> userCourses;
   private HashMap<String, Course> allCourses;
 
-  public Backend() {
-    this.userMajor = null;
+  public Backend(HashMap<String, Major> guideMajors, HashMap<String, Course> allCourses) {
+    this.allCourses = allCourses;
+    this.guideMajors = guideMajors;
   }
 
   @Override
@@ -40,7 +41,132 @@ public class Backend implements IBackend {
     if (requirement.metBy(this.userCourses)) {
       return toReturn;
     } else {
-      return requirement.couldTake(this.userCourses);
+      HashSet<Course> toCheck = requirement.couldTake(this.userCourses);
+
+      for (Course c : toCheck) {
+        if (c.getPrereqs().length() != 0) {
+          if (meetPrereqs(c.getPrereqs())) {
+            toReturn.add(c);
+          }
+        } else {
+          toReturn.add(c);
+        }
+      }
+
     }
+    return toReturn;
   }
+
+  public boolean checkSingle(String prereq) {
+    for (int i = 0; i < prereq.length(); i++) {
+      if (prereq.charAt(i) == '&' || prereq.charAt(i) == '|' || prereq.charAt(i) == '(') {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public boolean checkAnd(String prereq) {
+    int count = 0;
+    for (int i = 0; i < prereq.length(); i++) {
+      if (prereq.charAt(i) == '&' && count == 0) {
+        return true;
+      } else if (prereq.charAt(i) == '(') {
+        count++;
+      } else if (prereq.charAt(i) == ')') {
+        count--;
+      }
+    }
+    return false;
+  }
+
+  public boolean checkOr(String prereq) {
+    int count = 0;
+    for (int i = 0; i < prereq.length(); i++) {
+      if (prereq.charAt(i) == '|' && count == 0) {
+        return true;
+      } else if (prereq.charAt(i) == '(') {
+        count++;
+      } else if (prereq.charAt(i) == ')') {
+        count--;
+      }
+    }
+    return false;
+  }
+
+  public String returnValue(String prereq, char delim, int count) {
+    String obj = new String();
+    if (count >= prereq.length()) {
+      return null;
+    }
+    while (count < prereq.length() && prereq.charAt(count) != delim) {
+      obj += prereq.charAt(count);
+      count++;
+      continue;
+    }
+    if (obj.charAt(0) == '(') {
+      obj = (String) obj.subSequence(1, obj.length() - 1);
+    }
+    obj = obj.trim();
+    return obj;
+  }
+
+  public boolean meetPrereqs(String prereqs) {
+    if (checkSingle(prereqs)) {
+      for (Course c : this.userCourses) {
+        if (c.getName().equals(prereqs)) {
+          return true;
+        }
+      }
+      return false;
+    } else if (checkAnd(prereqs)) {
+      int count = 0;
+      while (count < prereqs.length()) {
+        if (returnValue(prereqs, '&', count) == null) {
+          continue;
+        }
+        if (!meetPrereqs(returnValue(prereqs, '&', count))) {
+          return false;
+        }
+        if (prereqs.charAt(count) == '(') {
+          count += 2 + returnValue(prereqs, '&', count).length();
+        } else {
+          count += returnValue(prereqs, '&', count).length();
+        }
+        if (count == prereqs.length()) {
+          return true;
+        }
+        if (prereqs.charAt(count) == '&') {
+          count++;
+        }
+      }
+      return true;
+    } else if (checkOr(prereqs)) {
+      int count = 0;
+      while (count < prereqs.length()) {
+        if (returnValue(prereqs, '|', count) == null) {
+          continue;
+        }
+        if (meetPrereqs(returnValue(prereqs, '|', count))) {
+          return true;
+        }
+        if (prereqs.charAt(count) == '(') {
+          count += 2 + returnValue(prereqs, '|', count).length();
+        } else {
+          count += returnValue(prereqs, '|', count).length();
+        }
+        if (count == prereqs.length()) {
+          return false;
+        }
+        if (prereqs.charAt(count) == '|') {
+          count++;
+        }
+      }
+
+      return false;
+    }
+    return true;
+  }
+
+
 }
