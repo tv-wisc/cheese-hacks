@@ -11,9 +11,9 @@ public class CourseAid {
     ILoader Loader = new Loader();
     // load the books from the data file
 
-    HashMap<String, Course> allCourses = Loader.coursesLoader("./cs.txt");
+    HashMap<String, Course> allCourses = Loader.coursesLoader("cs.txt");
     
-    HashMap<String, Major> guideMajors = Loader.majorLoader("./Majors.txt");
+    HashMap<String, Major> guideMajors = Loader.majorLoader("Majors.txt");
     
 //    System.out.println(guideMajors.get("CS").getRequirements().get(0).getTitle());
     

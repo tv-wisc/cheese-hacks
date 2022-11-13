@@ -49,6 +49,8 @@ public class Backend implements IBackend {
       return toReturn;
     } else {
       HashSet<Course> toCheck = requirement.couldTake(this.userCourses);
+//      System.out.println(this.userCourses);
+//      System.out.println(toCheck);
 
       for (Course c : toCheck) {
         if (c.getPrereqs() != null) {

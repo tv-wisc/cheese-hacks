@@ -22,5 +22,10 @@ public class Course {
   public String getPrereqs() {
     return this.prereqs;
   }
+  
+  @Override
+  public String toString() {
+    return this.name;
+  }
 
 }

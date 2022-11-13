@@ -23,4 +23,9 @@ public class Major {
 
     return requirements;
   }
+
+  @Override
+  public String toString() {
+    return this.name;
+  }
 }

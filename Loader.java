@@ -35,17 +35,23 @@ public class Loader implements ILoader {
         }
 
         Course toAdd = new Course(name, numCredits, prereqs);
+//        System.out.println(toAdd);
 
         this.allCourses.put(name, toAdd);
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
+//    System.out.println(this.allCourses);
+//    System.out.println("hello");
+//    System.out.println(this.allCourses.get("CS 400"));
     return this.allCourses;
   }
 
   @Override
   public HashMap<String, Major> majorLoader(String filePath) throws FileNotFoundException {
+    
+   System.out.println();
 
     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 
@@ -63,13 +69,20 @@ public class Loader implements ILoader {
         int numCredits = Integer.valueOf(temp[1]);
         int numCourses = Integer.valueOf(temp[2]);
         String coursesAvailable = temp[3];
-
+        
         coursesAvailable = coursesAvailable.replaceAll("[&|]", ",").replaceAll("[()]", "");
+        
         HashSet<Course> courses = new HashSet<Course>();
 
         for (String e : coursesAvailable.split(",")) {
+//          System.out.println(e);
+//          System.out.println(allCourses.get(e));
           courses.add(allCourses.get(e));
         }
+//        System.out.println(courses);
+        
+//        System.out.println(reqName);
+//        System.out.println(courses);
 
         reqs.add(new Requirement(courses, numCourses, numCredits, reqName));
       }

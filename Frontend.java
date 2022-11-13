@@ -35,6 +35,11 @@ public class Frontend implements IFrontend {
       checkRequirements();
 
       System.out.println("Run Again?(enter q to quit)");
+      
+      if (userInputScanner.next().equalsIgnoreCase("q")) {
+        System.out.println("Goodbye!");
+        break;
+      }
     }
 
   }
@@ -56,7 +61,7 @@ public class Frontend implements IFrontend {
   public void enterCourses() {
     while (true) {
       System.out.println("Please enter course you have taken(enter q when no more left): \n");
-      String userCourse = userInputScanner.nextLine();
+      String userCourse = userInputScanner.nextLine().trim();
       if (userCourse.equalsIgnoreCase("q")) {
         break;
       } else {
@@ -73,9 +78,12 @@ public class Frontend implements IFrontend {
     for (int i = 0; i < reqs.size(); ++i) {
       System.out.println(i + 1 + ") " + reqs.get(i).getTitle());
     }
+    System.out.println();
 
     String userReq = userInputScanner.next();
 
+//    System.out.println(reqs.get(Integer.parseInt(userReq) - 1));
+    
     HashSet<Course> toTake = backend.checkRequirement(reqs.get(Integer.parseInt(userReq) - 1));
 
     System.out.println();
