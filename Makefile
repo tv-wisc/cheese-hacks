@@ -1,3 +1,6 @@
 run:
 	javac *.java
-	java CourseAid.java 
+	java CourseAid.java
+
+clean:
+	rm *.class

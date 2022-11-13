@@ -34,9 +34,9 @@ public class Frontend implements IFrontend {
 
       checkRequirements();
 
-      System.out.println("\nRun Again?(enter q to quit)");
+      System.out.println("\nRun Again?(y/n)\n");
 
-      if (userInputScanner.next().equalsIgnoreCase("q")) {
+      if (userInputScanner.next().equalsIgnoreCase("n")) {
         System.out.println("Goodbye!");
         break;
       }
@@ -47,12 +47,12 @@ public class Frontend implements IFrontend {
   @Override
   public void getMajor() {
     while (true) {
-      System.out.println("Please enter your major: \n");
+      System.out.println("\nPlease enter your major: \n");
       String userMajor = userInputScanner.next();
       if (backend.setMajor(userMajor)) {
         break;
       } else {
-        System.out.println("Please enter valid major.\n");
+        System.out.print("Major not valid. ");
       }
     }
   }

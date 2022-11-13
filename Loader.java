@@ -81,7 +81,7 @@ public class Loader implements ILoader {
         // System.out.println(reqName);
         // System.out.println(courses);
 
-        reqs.add(new Requirement(courses, numCourses, numCredits, reqName));
+        reqs.add(new Requirement(courses, numCourses, numCredits, reqName, temp[3]));
       }
       this.allMajors.put(title, new Major(reqs, title));
     } catch (IOException e) {

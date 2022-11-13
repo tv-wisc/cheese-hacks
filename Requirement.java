@@ -5,12 +5,14 @@ public class Requirement {
   private String title;
   private int numCourses;
   private int numCredits;
+  private String completionReqs;
 
-  public Requirement(HashSet<Course> courses, int numCourses, int numCredits, String title) {
+  public Requirement(HashSet<Course> courses, int numCourses, int numCredits, String title, String completionReq) {
     this.courses = courses;
     this.numCourses = numCourses;
     this.numCredits = numCredits;
     this.title = title;
+    this.completionReqs = completionReq;
   }
 
   public String getTitle() {
@@ -23,6 +25,10 @@ public class Requirement {
 
   public int getNumCredits() {
     return this.numCredits;
+  }
+  
+  public String getCompletionReq() {
+    return this.completionReqs;
   }
 
   public boolean metBy(HashSet<Course> courses) {
