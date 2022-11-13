@@ -28,7 +28,7 @@ public class Requirement {
   public boolean metBy(HashSet<Course> courses) {
     int numCoursesTakenByUser = 0;
     int numCreditsTakenByUser = 0;
-
+    
     for (var c : courses) {
       if (this.courses.contains(c)) {
         numCoursesTakenByUser++;
@@ -45,7 +45,7 @@ public class Requirement {
   public HashSet<Course> couldTake(HashSet<Course> courses) {
     @SuppressWarnings("unchecked")
     HashSet<Course> reqCourses = (HashSet<Course>) this.courses.clone();
-    reqCourses.removeAll(courses);
+//    reqCourses.removeAll(courses);
     return reqCourses;
   }
 }

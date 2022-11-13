@@ -14,7 +14,7 @@ public class Frontend implements IFrontend {
    * @param userInputScanner
    * @param backend
    */
-  public Frontend(Scanner userInputScanner, IBackend backend) {// TODO change to Backend Object
+  public Frontend(Scanner userInputScanner, IBackend backend) {
     this.userInputScanner = userInputScanner;
     this.backend = backend;
   }
@@ -28,6 +28,7 @@ public class Frontend implements IFrontend {
     while (run) {
 
       getMajor();
+      userInputScanner.nextLine();
 
       enterCourses();
 
@@ -55,7 +56,7 @@ public class Frontend implements IFrontend {
   public void enterCourses() {
     while (true) {
       System.out.println("Please enter course you have taken(enter q when no more left): \n");
-      String userCourse = userInputScanner.next();
+      String userCourse = userInputScanner.nextLine();
       if (userCourse.equalsIgnoreCase("q")) {
         break;
       } else {
@@ -75,7 +76,7 @@ public class Frontend implements IFrontend {
 
     String userReq = userInputScanner.next();
 
-    HashSet<Course> toTake = backend.checkRequirement(reqs.get(Integer.parseInt(userReq)));
+    HashSet<Course> toTake = backend.checkRequirement(reqs.get(Integer.parseInt(userReq) - 1));
 
     System.out.println();
     if (toTake.size() == 0) {

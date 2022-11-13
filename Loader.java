@@ -29,7 +29,10 @@ public class Loader implements ILoader {
 
         String name = temp[0];
         int numCredits = Integer.valueOf(temp[1]);
-        String prereqs = temp[2];
+        String prereqs = "";
+        if (temp.length > 2) {
+        prereqs = temp[2];
+        }
 
         Course toAdd = new Course(name, numCredits, prereqs);
 
@@ -54,7 +57,7 @@ public class Loader implements ILoader {
 
       for (String line; (line = br.readLine()) != null;) {
 
-        String[] temp = line.split("");
+        String[] temp = line.split(",");
 
         String reqName = temp[0];
         int numCredits = Integer.valueOf(temp[1]);

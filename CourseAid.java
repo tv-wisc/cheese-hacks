@@ -15,7 +15,7 @@ public class CourseAid {
     
     HashMap<String, Major> guideMajors = Loader.majorLoader("./Majors.txt");
     
-    System.out.println(guideMajors.get("CS"));
+//    System.out.println(guideMajors.get("CS").getRequirements().get(0).getTitle());
     
     IBackend backend = new Backend(guideMajors, allCourses);
 

@@ -12,6 +12,7 @@ public class Backend implements IBackend {
   public Backend(HashMap<String, Major> guideMajors, HashMap<String, Course> allCourses) {
     this.allCourses = allCourses;
     this.guideMajors = guideMajors;
+    this.userCourses = new HashSet<Course>();
   }
 
   @Override
@@ -23,11 +24,16 @@ public class Backend implements IBackend {
     return false;
   }
 
+  public Major getMajor() {
+    return userMajor;
+  }
+
   @Override
   public void addUserCourse(String userCourse) {
     if (this.allCourses.containsKey(userCourse)) {
       this.userCourses.add(this.allCourses.get(userCourse));
     }
+    // System.out.println(this.allCourses);
   }
 
   @Override
@@ -38,18 +44,21 @@ public class Backend implements IBackend {
   @Override
   public HashSet<Course> checkRequirement(Requirement requirement) {
     HashSet<Course> toReturn = new HashSet<Course>();
+
     if (requirement.metBy(this.userCourses)) {
       return toReturn;
     } else {
       HashSet<Course> toCheck = requirement.couldTake(this.userCourses);
 
       for (Course c : toCheck) {
-        if (c.getPrereqs().length() != 0) {
-          if (meetPrereqs(c.getPrereqs())) {
+        if (c.getPrereqs() != null) {
+          if (c.getPrereqs().length() != 0) {
+            if (meetPrereqs(c.getPrereqs())) {
+              toReturn.add(c);
+            }
+          } else {
             toReturn.add(c);
           }
-        } else {
-          toReturn.add(c);
         }
       }
 
